@@ -24,6 +24,11 @@
   z-index: 9999;
 }
 
+#page-loader.fade-out {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
 /* Sam spinner – okrąg z obrotową animacją */
 .spinner {
   width: 60px;
@@ -188,11 +193,6 @@
 
   <!-- JavaScript -->
   <script>
-    // Mobile menu toggle
-    document.querySelector('.mobile-menu').addEventListener('click', function() {
-      const nav = document.querySelector('.nav-links');
-      nav.style.display = (nav.style.display === 'flex') ? 'none' : 'flex';
-    });
 
     function findValidDogUrl(baseName) {
     const exts = ['jpg','png','webp'];
@@ -255,6 +255,17 @@
       }
     });
   })();
+
+ // Gdy wszystko (obrazy, skrypty, style) zostanie załadowane...
+ window.addEventListener('load', () => {
+    const loader = document.getElementById('page-loader');
+    // Dodaj klasę fade-out
+    loader.classList.add('fade-out');
+    // Po animacji (0.5s) całkowicie ukryj element
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 500);
+  });
 
   // Mobile menu toggle… (jeśli jeszcze masz)
   document.querySelector('.mobile-menu').addEventListener('click', () => {
