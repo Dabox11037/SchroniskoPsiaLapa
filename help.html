@@ -10,6 +10,35 @@
 
   <!-- Główny styl ze strony głównej -->
   <style>
+
+#page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: white;       /* lub Twój kolor tła */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+/* Sam spinner – okrąg z obrotową animacją */
+.spinner {
+  width: 60px;
+  height: 60px;
+  border: 6px solid rgba(255, 140, 0, 0.2);  /* jasny pomarańcz */
+  border-top-color: #ff8c00;                 /* intensywny pomarańcz */
+  border-radius: 50%;
+  animation: spin 1s infinite linear;
+}
+
+/* Definicja keyframes dla obracania */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
     /* Global */
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -113,7 +142,9 @@
   </style>
 </head>
 <body>
-
+  <div id="page-loader">
+    <div class="spinner"></div>
+  </div>
   <!-- Nawigacja -->
   <nav class="navbar">
 
@@ -136,7 +167,7 @@
   <section class="game-container">
     <h2>AI Animal Shelter Clicker</h2>
     <div class="animal-card">
-      <img id="animal-img" src="https://placekitten.com/400/250" alt="">
+      <img id="animal-img" src="https://placekitten.com/400/250" alt="" loading="lazy">
     </div>
     <div class="scoreboard">
       <span>Punkty Opieki: </span><span id="score">0</span>
