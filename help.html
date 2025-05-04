@@ -147,9 +147,7 @@
   </style>
 </head>
 <body>
-  <div id="page-loader">
-    <div class="spinner"></div>
-  </div>
+
   <!-- Nawigacja -->
   <nav class="navbar">
 
@@ -157,7 +155,7 @@
     <ul class="nav-links">
       <li><a href="index.html">Strona główna</a></li>
       <li><a href="about.html">O schronisku</a></li>
-      <li><a href="#">Help</a></li>
+      <li><a href="help.html">Help</a></li>
       <li><a href="#contact">Kontakt</a></li>
     </ul>
   </nav>
@@ -172,7 +170,10 @@
   <section class="game-container">
     <h2>AI Animal Shelter Clicker</h2>
     <div class="animal-card">
-      <img id="animal-img" src="https://placekitten.com/400/250" alt="" loading="lazy">
+      <picture>
+        <source type="webp" srcset="https://placekitten.com/400/250.webp">
+        <img id="animal-img" src="https://aipetphotos.com/static/media/ah5ngmcv8fdglzxansrc.6c2dff974cff673d3764.webp" alt="Ai dog" loading="lazy">
+      </picture>
     </div>
     <div class="scoreboard">
       <span>Punkty Opieki: </span><span id="score">0</span>
@@ -194,78 +195,88 @@
   <!-- JavaScript -->
   <script>
 
-    function findValidDogUrl(baseName) {
-    const exts = ['webp'];
-    return new Promise(resolve => {
-      let i = 0;
-      function tryExt() {
-        if (i >= exts.length) return resolve(null);
-        const url = `assets/dogs/${baseName}.${exts[i]}`;
-        const testImg = new Image();
-        testImg.onload  = () => resolve(url);
-        testImg.onerror = () => { i++; tryExt(); };
-        testImg.src = url;
+function preloadBatch(urls, batchSize = 5, delay = 200) {
+      let index = 0;
+      function loadBatch(deadline) {
+        let count = 0;
+        while (index < urls.length && count < batchSize && (!deadline || deadline.timeRemaining() > 0)) {
+          const img = new Image();
+          img.src = urls[index++];
+          count++;
+        }
+        if (index < urls.length) {
+          if (window.requestIdleCallback) {
+            requestIdleCallback(loadBatch, { timeout: 1000 });
+          } else {
+            setTimeout(loadBatch, delay);
+          }
+        }
       }
-      tryExt();
-    });
-  }
-
-  // 2) Zbierz wszystkie istniejące URL-e
-  async function preloadDogImages() {
-    const TOTAL = 63;    // Zmień wg liczby swoich plików 'dog1'…'dog63'
-    const urls = [];
-    for (let n = 1; n <= TOTAL; n++) {
-      const url = await findValidDogUrl(`dog${n}`);
-      if (url) urls.push(url);
-    }
-    // 3) Fisher–Yates shuffle
-    for (let i = urls.length-1; i > 0; i--) {
-      const j = Math.floor(Math.random()*(i+1));
-      [urls[i], urls[j]] = [urls[j], urls[i]];
-    }
-    return urls;
-  }
-
-  // 4) Uruchom grę po przygotowaniu listy obrazków
-  (async function startGame() {
-    const dogPics = await preloadDogImages();
-    let score = 0, idx = 0;
-    const imgEl   = document.getElementById('animal-img');
-    const scoreEl = document.getElementById('score');
-    const msgEl   = document.getElementById('message');
-    const btn     = document.getElementById('click-btn');
-
-    // Preload sliderem
-    dogPics.forEach(src => new Image().src = src);
-
-    btn.addEventListener('click', () => {
-      score++;
-      scoreEl.textContent = score;
-
-      // Twoje komunikaty
-      if (score === 10)      msgEl.textContent = 'Świetnie! 10 punktów!';
-      else if (score === 25) msgEl.textContent = 'Super! 25 punktów!';
-      else if (score === 50) msgEl.textContent = 'Niesamowite! 50 punktów!';
-      else                   msgEl.textContent = 'Klikaj dalej!';
-
-      // Co 20 kliknięć zmień obrazek
-      if (score % 20 === 0) {
-        idx = (idx + 1) % dogPics.length;
-        imgEl.src = dogPics[idx];
+      if (window.requestIdleCallback) {
+        requestIdleCallback(loadBatch);
+      } else {
+        setTimeout(loadBatch, delay);
       }
-    });
-  })();
+    }
 
- // Gdy wszystko (obrazy, skrypty, style) zostanie załadowane...
- window.addEventListener('load', () => {
-    const loader = document.getElementById('page-loader');
-    // Dodaj klasę fade-out
-    loader.classList.add('fade-out');
-    // Po animacji (0.5s) całkowicie ukryj element
-    setTimeout(() => {
-      loader.style.display = 'none';
-    }, 500);
-  });
+    async function findValidDogUrl(baseName) {
+      const exts = ['webp', 'jpg', 'png'];
+      for (let ext of exts) {
+        try {
+          await new Promise((res, rej) => {
+            const img = new Image();
+            img.onload = () => res();
+            img.onerror = () => rej();
+            img.src = `assets/dogs/${baseName}.${ext}`;
+          });
+          return `assets/dogs/${baseName}.${ext}`;
+        } catch {
+          // continue
+        }
+      }
+      return null;
+    }
+
+    async function preloadDogImages() {
+      const TOTAL = 63;
+      const urls = [];
+      for (let i = 1; i <= TOTAL; i++) {
+        const url = await findValidDogUrl(`dog${i}`);
+        if (url) urls.push(url);
+      }
+      // Shuffle
+      for (let i = urls.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [urls[i], urls[j]] = [urls[j], urls[i]];
+      }
+      return urls;
+    }
+
+    (async function startGame() {
+      const dogPics = await preloadDogImages();
+      // Lazy preload in background
+      preloadBatch(dogPics);
+
+      let score = 0, idx = 0;
+      const imgEl = document.getElementById('animal-img');
+      const scoreEl = document.getElementById('score');
+      const msgEl = document.getElementById('message');
+      const btn = document.getElementById('click-btn');
+
+      btn.addEventListener('click', () => {
+        score++;
+        scoreEl.textContent = score;
+        if (score === 10) msgEl.textContent = 'Świetnie! 10 punktów!';
+        else if (score === 25) msgEl.textContent = 'Super! 25 punktów!';
+        else if (score === 50) msgEl.textContent = 'Niesamowite! 50 punktów!';
+        else msgEl.textContent = 'Klikaj dalej!';
+
+        if (score % 20 === 0) {
+          idx = (idx + 1) % dogPics.length;
+          imgEl.src = dogPics[idx];
+        }
+      });
+    })();
 
   // Mobile menu toggle… (jeśli jeszcze masz)
   document.querySelector('.mobile-menu').addEventListener('click', () => {
