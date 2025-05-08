@@ -281,7 +281,15 @@
 
   <!-- JavaScript -->
   <script>
-
+window.addEventListener('load', () => {
+    const loader = document.getElementById('page-loader');
+    // Dodaj klasę fade-out
+    loader.classList.add('fade-out');
+    // Po animacji (0.5s) całkowicie ukryj element
+    setTimeout(() => {
+      loader.style.display = 'none';
+    }, 500);
+  });
 function preloadBatch(urls, batchSize = 5, delay = 200) {
       let index = 0;
       function loadBatch(deadline) {
