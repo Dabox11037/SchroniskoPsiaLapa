@@ -1,16 +1,99 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset
-      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
-            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
-
-
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
   <loc>https://schronisko-psia-lapa.vercel.app/</loc>
-  <lastmod>2025-03-18T11:45:19+00:00</lastmod>
+  <lastmod>2026-11-05</lastmod>
 </url>
-
-
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/about.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/uslugi.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/help.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/smycz-bluetooth.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/wirtualne-przysmaki.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/legowisko-ladowarka.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/kubek-moj-pies-jest-ai.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/inteligentna-pilka-aport.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/obroza-e-ink.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/pakiet-sztuczek-mistrz-komend.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/skorki-i-rasy-premium.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/glosnik-budka.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/adresowka-nfc.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/psi-pamietnik.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/pluszak-z-modulem-ai.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/mini-projektor-hologramow.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/pakiet-glosow.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/gryzak-podkladka.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/koszulka-adoptowalem-psa-ai.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/naklejki-psia-lapa.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/kalendarz-2027.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/karta-podarunkowa.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
+<url>
+  <loc>https://schronisko-psia-lapa.vercel.app/produkty/pakiet-pierwszy-dzien-w-domu.html</loc>
+  <lastmod>2026-11-05</lastmod>
+</url>
 </urlset>
