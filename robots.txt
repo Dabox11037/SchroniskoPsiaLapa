@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://schronisko-psia-lapa.vercel.app/sitemap.xml

@@ -9,7 +9,7 @@ const products = [
     "label": "129 zł",
     "cat": "akcesoria",
     "hasVariants": false,
-    "img": "assets/produkty/smycz-bluetooth.jpg"
+    "img": "assets/produkty/smycz-bluetooth.webp"
   },
   {
     "slug": "wirtualne-przysmaki",
@@ -20,7 +20,7 @@ const products = [
     "label": "15 zł",
     "cat": "cyfrowe",
     "hasVariants": false,
-    "img": "assets/produkty/wirtualne-przysmaki.jpg"
+    "img": "assets/produkty/wirtualne-przysmaki.webp"
   },
   {
     "slug": "legowisko-ladowarka",
@@ -31,7 +31,7 @@ const products = [
     "label": "89 zł",
     "cat": "akcesoria",
     "hasVariants": false,
-    "img": "assets/produkty/legowisko-ladowarka.png"
+    "img": "assets/produkty/legowisko-ladowarka.webp"
   },
   {
     "slug": "kubek-moj-pies-jest-ai",
@@ -42,7 +42,7 @@ const products = [
     "label": "39 zł",
     "cat": "gadzety",
     "hasVariants": false,
-    "img": "assets/produkty/kubek-moj-pies-jest-ai.jpg"
+    "img": "assets/produkty/kubek-moj-pies-jest-ai.webp"
   },
   {
     "slug": "inteligentna-pilka-aport",
@@ -53,7 +53,7 @@ const products = [
     "label": "69 zł",
     "cat": "akcesoria",
     "hasVariants": false,
-    "img": "assets/produkty/inteligentna-pilka-aport.jpg"
+    "img": "assets/produkty/inteligentna-pilka-aport.webp"
   },
   {
     "slug": "obroza-e-ink",
@@ -64,7 +64,7 @@ const products = [
     "label": "149 zł",
     "cat": "akcesoria",
     "hasVariants": false,
-    "img": "assets/produkty/obroza-e-ink.png"
+    "img": "assets/produkty/obroza-e-ink.webp"
   },
   {
     "slug": "pakiet-sztuczek-mistrz-komend",
@@ -75,7 +75,7 @@ const products = [
     "label": "25 zł",
     "cat": "cyfrowe",
     "hasVariants": false,
-    "img": "assets/produkty/pakiet-sztuczek-mistrz-komend.jpg"
+    "img": "assets/produkty/pakiet-sztuczek-mistrz-komend.webp"
   },
   {
     "slug": "skorki-i-rasy-premium",
@@ -86,7 +86,7 @@ const products = [
     "label": "19 zł",
     "cat": "cyfrowe",
     "hasVariants": false,
-    "img": "assets/produkty/skorki-i-rasy-premium.jpg"
+    "img": "assets/produkty/skorki-i-rasy-premium.webp"
   },
   {
     "slug": "glosnik-budka",
@@ -97,7 +97,7 @@ const products = [
     "label": "199 zł",
     "cat": "akcesoria",
     "hasVariants": false,
-    "img": "assets/produkty/glosnik-budka.jpg"
+    "img": "assets/produkty/glosnik-budka.webp"
   },
   {
     "slug": "adresowka-nfc",
@@ -108,7 +108,7 @@ const products = [
     "label": "29 zł",
     "cat": "akcesoria",
     "hasVariants": false,
-    "img": "assets/produkty/adresowka-nfc.jpg"
+    "img": "assets/produkty/adresowka-nfc.webp"
   },
   {
     "slug": "psi-pamietnik",
@@ -119,7 +119,7 @@ const products = [
     "label": "35 zł / rok",
     "cat": "cyfrowe",
     "hasVariants": false,
-    "img": "assets/produkty/psi-pamietnik.png"
+    "img": "assets/produkty/psi-pamietnik.webp"
   },
   {
     "slug": "pluszak-z-modulem-ai",
@@ -130,7 +130,7 @@ const products = [
     "label": "179 zł",
     "cat": "akcesoria",
     "hasVariants": false,
-    "img": "assets/produkty/pluszak-z-modulem-ai.png"
+    "img": "assets/produkty/pluszak-z-modulem-ai.webp"
   },
   {
     "slug": "mini-projektor-hologramow",
@@ -141,7 +141,7 @@ const products = [
     "label": "249 zł",
     "cat": "akcesoria",
     "hasVariants": false,
-    "img": "assets/produkty/mini-projektor-hologramow.jpg"
+    "img": "assets/produkty/mini-projektor-hologramow.webp"
   },
   {
     "slug": "pakiet-glosow",
@@ -152,7 +152,7 @@ const products = [
     "label": "15 zł",
     "cat": "cyfrowe",
     "hasVariants": false,
-    "img": "assets/produkty/pakiet-glosow.jpg"
+    "img": "assets/produkty/pakiet-glosow.webp"
   },
   {
     "slug": "gryzak-podkladka",
@@ -163,7 +163,7 @@ const products = [
     "label": "45 zł",
     "cat": "gadzety",
     "hasVariants": false,
-    "img": "assets/produkty/gryzak-podkladka.jpg"
+    "img": "assets/produkty/gryzak-podkladka.webp"
   },
   {
     "slug": "koszulka-adoptowalem-psa-ai",
@@ -174,7 +174,7 @@ const products = [
     "label": "59 zł",
     "cat": "gadzety",
     "hasVariants": true,
-    "img": "assets/produkty/koszulka-adoptowalem-psa-ai.jpg"
+    "img": "assets/produkty/koszulka-adoptowalem-psa-ai.webp"
   },
   {
     "slug": "naklejki-psia-lapa",
@@ -185,7 +185,7 @@ const products = [
     "label": "12 zł",
     "cat": "gadzety",
     "hasVariants": false,
-    "img": "assets/produkty/naklejki-psia-lapa.jpg"
+    "img": "assets/produkty/naklejki-psia-lapa.webp"
   },
   {
     "slug": "kalendarz-2027",
@@ -196,7 +196,7 @@ const products = [
     "label": "49 zł",
     "cat": "gadzety",
     "hasVariants": false,
-    "img": "assets/produkty/kalendarz-2027.png"
+    "img": "assets/produkty/kalendarz-2027.webp"
   },
   {
     "slug": "karta-podarunkowa",
@@ -207,7 +207,7 @@ const products = [
     "label": "od 50 zł",
     "cat": "zestawy",
     "hasVariants": true,
-    "img": "assets/produkty/karta-podarunkowa.jpg"
+    "img": "assets/produkty/karta-podarunkowa.webp"
   },
   {
     "slug": "pakiet-pierwszy-dzien-w-domu",
