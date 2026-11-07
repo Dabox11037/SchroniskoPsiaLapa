@@ -8,7 +8,9 @@ pod dowolną nazwą, a potem uruchom:
     python scripts/przygotuj_wpisy.py
 
 Dla każdego pliku bez nagłówka skrypt zapyta o:
-  tytuł, opis, datę, autora, obrazek okładki i teksty alt zdjęć.
+  tytuł, opis, datę, autora, adres, okładkę i teksty alt zdjęć.
+Okładkę można podać z dowolnego pliku (np. przeciągając jpg do terminala) –
+skrypt przekonwertuje ją do WebP i zapisze w assets/blog/<adres-wpisu>.webp.
 W wpisach już przygotowanych uzupełnia brakujące teksty alt.
 W nawiasach [ ] pokazuje podpowiedź – Enter ją akceptuje.
 Potem dopisuje nagłówek, zmienia nazwę pliku na adres z tytułu
@@ -98,11 +100,62 @@ def check_date(v):
         return "Podaj datę w formacie RRRR-MM-DD, np. 2026-11-07."
 
 
+def clean_path(v):
+    """Usuwa cudzysłowy i '& ' dodawane przy przeciąganiu pliku do terminala."""
+    v = v.strip()
+    if v.startswith("& "):
+        v = v[2:].strip()
+    return v.strip("'\"")
+
+
+def local_image(v):
+    """Pełna ścieżka do pliku obrazka (od katalogu strony albo bezwzględna) lub None."""
+    v = clean_path(v)
+    for p in (os.path.join(ROOT, v), v):
+        if os.path.isfile(p):
+            return os.path.abspath(p)
+    return None
+
+
 def check_image(v):
+    v = clean_path(v)
     if v.startswith("http"):
         return None
-    if not os.path.exists(os.path.join(ROOT, v)):
-        return f"Nie ma pliku {v} (ścieżka od katalogu głównego strony, np. assets/blog/okladka.jpg)."
+    p = local_image(v)
+    if not p:
+        return f"Nie ma pliku {v}. Podaj pełną ścieżkę (możesz przeciągnąć plik do terminala) albo ścieżkę od katalogu strony."
+    try:
+        from PIL import Image
+        with Image.open(p) as im:
+            im.verify()
+    except ImportError:
+        return "Brak biblioteki Pillow – zainstaluj: pip install pillow"
+    except Exception:
+        return "To nie jest obsługiwany plik graficzny (jpg, png, webp…)."
+
+
+def prepare_cover(v, slug):
+    """Okładka z pliku: konwersja do WebP w assets/blog/<slug>.webp. Zwraca ścieżkę do nagłówka."""
+    v = clean_path(v)
+    if not v or v.startswith("http"):
+        return v
+    src = local_image(v)
+    assets = os.path.join(ROOT, "assets") + os.sep
+    if src.lower().endswith(".webp") and src.startswith(assets):
+        return os.path.relpath(src, ROOT).replace(os.sep, "/")
+    from PIL import Image, ImageOps
+    out_rel = f"assets/blog/{slug}.webp"
+    out = os.path.join(ROOT, out_rel)
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    with Image.open(src) as im:
+        im = ImageOps.exif_transpose(im)
+        if im.mode not in ("RGB", "RGBA"):
+            im = im.convert("RGBA" if "transparency" in im.info or im.mode in ("LA", "P") else "RGB")
+        im.thumbnail((1600, 1600))
+        im.save(out, "WEBP", quality=82)
+    kb_in, kb_out = os.path.getsize(src) // 1024, os.path.getsize(out) // 1024
+    print(f"  ✓ Okładka przekonwertowana do WebP: {out_rel} ({kb_in} KB → {kb_out} KB)")
+    return out_rel
 
 
 IMG_RE = re.compile(r"<img\b[^>]*>", re.I)
@@ -187,14 +240,17 @@ def main():
                    check=lambda v: "Usuń znak '-->' z opisu." if "-->" in v else None)
         when = ask("Data publikacji (RRRR-MM-DD)", date.today().isoformat(), check=check_date)
         author = ask("Autor", "Zespół Psiej Łapy")
-        image = ask("Obrazek okładki (Enter = brak)", suggest_image(body), required=False, check=check_image)
-
         slug = ask("Adres wpisu (nazwa pliku)", slugify(title),
                    check=lambda v: None if re.fullmatch(r"[a-z0-9-]+", v) else "Tylko małe litery, cyfry i myślniki.")
         new_name = slug + ".html"
         if new_name != f and os.path.exists(os.path.join(SRC_DIR, new_name)):
             print(f"  ✗ Plik {new_name} już istnieje – pomijam ten artykuł, zmień adres i uruchom skrypt ponownie.")
             continue
+
+        print("  Okładka: przeciągnij plik (jpg/png/webp) do terminala albo wklej ścieżkę.")
+        image = ask("Obrazek okładki (Enter = podpowiedź, '-' = brak)", suggest_image(body), required=False,
+                    check=lambda v: None if v.strip() == "-" else check_image(v))
+        image = "" if image.strip() == "-" else prepare_cover(image, slug)
 
         body, _ = fix_alts(body, only_missing=False)
 
