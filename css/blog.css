@@ -1,0 +1,85 @@
+/* ==========================================================
+   Blog Psiej Łapy – lista wpisów i wygląd artykułów (wymaga main.css)
+   Treść artykułu (.post-body) jest stylowana wyłącznie tutaj –
+   generator usuwa z wklejonego HTML atrybuty style="...".
+   ========================================================== */
+
+.blog-page { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+
+/* ---------- Lista wpisów (blog.html) ---------- */
+.post-list { display: flex; flex-direction: column; gap: 1.5rem; }
+.post-card { display: grid; grid-template-columns: 260px 1fr; background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.post-card:hover { transform: translateY(-3px); box-shadow: 0 6px 14px rgba(0,0,0,0.15); }
+.post-card:not(:has(img)) { grid-template-columns: 1fr; }
+.post-card img { width: 100%; height: 100%; object-fit: cover; display: block; min-height: 180px; }
+.post-card-body { padding: 1.5rem; }
+.post-card h2 { font-size: 1.3rem; line-height: 1.3; margin: 0.2rem 0 0.5rem; }
+.post-card h2 a { color: #333; text-decoration: none; }
+.post-card h2 a:hover { color: #ff8c00; }
+.post-card .more { color: #ff8c00; font-weight: bold; text-decoration: none; display: inline-block; margin-top: 0.5rem; }
+.post-meta { color: #888; font-size: 0.9rem; }
+.empty { text-align: center; color: #666; padding: 2rem; }
+
+/* ---------- Artykuł ---------- */
+.post { background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 2.5rem; color: #333; }
+.post h1 { font-size: 2.1rem; line-height: 1.25; margin-bottom: 0.4rem; color: #222; }
+.post-cover { width: 100%; max-height: 480px; object-fit: cover; border-radius: 10px; margin: 1.5rem 0 0.5rem; display: block; }
+
+.post-body { margin-top: 1.5rem; font-size: 1.08rem; line-height: 1.75; overflow-wrap: break-word; }
+.post-body > :first-child { margin-top: 0; }
+
+/* Nagłówki */
+.post-body h2 { font-size: 1.55rem; line-height: 1.3; margin: 2.2rem 0 0.8rem; padding-bottom: 0.3rem; border-bottom: 3px solid #ffe0b2; color: #222; }
+.post-body h3 { font-size: 1.25rem; line-height: 1.35; margin: 1.8rem 0 0.6rem; color: #c66a00; }
+.post-body h4, .post-body h5, .post-body h6 { font-size: 1.05rem; margin: 1.4rem 0 0.5rem; }
+
+/* Tekst */
+.post-body p { margin: 0 0 1.1rem; }
+.post-body strong, .post-body b { color: #222; }
+.post-body a { color: #e07b00; text-decoration: underline; text-underline-offset: 2px; }
+.post-body a:hover { color: #ff8c00; text-decoration-thickness: 2px; }
+.post-body mark { background: #ffe0b2; padding: 0 0.2em; }
+
+/* Listy */
+.post-body ul, .post-body ol { margin: 0 0 1.2rem; padding-left: 1.6rem; }
+.post-body li { margin-bottom: 0.4rem; }
+.post-body li::marker { color: #ff8c00; }
+.post-body ul ul, .post-body ol ol, .post-body ul ol, .post-body ol ul { margin: 0.4rem 0 0; }
+
+/* Zdjęcia */
+.post-body img { display: block; max-width: 100%; height: auto; margin: 1.5rem auto; border-radius: 8px; }
+.post-body figure { margin: 1.5rem 0; }
+.post-body figure img { margin: 0 auto; }
+.post-body figcaption { text-align: center; color: #888; font-size: 0.9rem; margin-top: 0.5rem; }
+.post-body iframe, .post-body video { display: block; max-width: 100%; margin: 1.5rem auto; border: 0; border-radius: 8px; }
+
+/* Cytaty i wyróżnienia */
+.post-body blockquote { margin: 1.5rem 0; padding: 1rem 1.3rem; border-left: 4px solid #ff8c00; background: #fff8ef; border-radius: 0 8px 8px 0; font-style: italic; }
+.post-body blockquote p:last-child { margin-bottom: 0; }
+.post-body hr { border: 0; border-top: 2px dashed #ffe0b2; margin: 2rem 0; }
+
+/* Tabele */
+.post-body .table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+.post-body table { width: 100%; border-collapse: collapse; font-size: 0.97rem; }
+.post-body th, .post-body td { padding: 0.65rem 0.9rem; border-bottom: 1px solid #eee; text-align: left; vertical-align: top; }
+.post-body th { background: #fff3e0; color: #333; }
+.post-body tr:nth-child(even) td { background: #fafafa; }
+
+/* Kod */
+.post-body code { background: #f4f4f4; padding: 0.1em 0.35em; border-radius: 4px; font-size: 0.92em; }
+.post-body pre { background: #f4f4f4; padding: 1rem; border-radius: 8px; overflow-x: auto; margin: 0 0 1.2rem; }
+.post-body pre code { background: none; padding: 0; }
+
+/* Uwaga pod artykułem (np. informacja o przygotowaniu z pomocą AI) */
+.post-body .post-note { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid #e5e5e5; color: #777; font-size: 0.9rem; font-style: italic; }
+.post-body .post-note p { margin: 0; }
+.post-body .post-note a { color: #777; }
+
+@media (max-width: 700px) {
+    .post-card { grid-template-columns: 1fr; }
+    .post-card img { max-height: 200px; }
+    .post { padding: 1.3rem; }
+    .post h1 { font-size: 1.65rem; }
+    .post-body { font-size: 1rem; }
+    .post-body h2 { font-size: 1.35rem; }
+}

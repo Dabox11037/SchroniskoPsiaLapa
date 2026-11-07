@@ -222,18 +222,37 @@ Wszystkie skrypty aktualizują `sitemap.xml` – zawsze zawiera komplet stron.
 ## 9. Struktura plików
 
 ```
-index.html, about.html, help.html   – strony główne (edycja ręczna)
-uslugi.html                         – usługi i sklep (karty produktów wstawia skrypt)
-koszyk.html, koszyk.js              – koszyk
-sklep.css, blog.css                 – style sklepu i bloga
-blog.html                           – lista wpisów         (generowane)
-blog/*.html                         – strony wpisów        (generowane)
-blog/wpisy/*.html                   – ARTYKUŁY – tu wrzucasz pliki
-produkty/*.html                     – strony produktów     (generowane)
-produkty-dane.js                    – dane produktów       (generowane)
-assets/produkty/                    – zdjęcia produktów
-assets/blog/                        – okładki i zdjęcia do artykułów
-scripts/                            – skrypty
-sitemap.xml                         – mapa strony          (generowane)
-robots.txt                          – zasady dla robotów wyszukiwarek
+├── index.html, about.html, uslugi.html,
+│   blog.html, koszyk.html, help.html   – strony (zostają w głównym folderze – ich adresy są w Google)
+├── robots.txt, sitemap.xml             – dla wyszukiwarek (sitemap generowana)
+├── google15a9acab89936e93.html         – weryfikacja Google Search Console – NIE USUWAĆ
+│
+├── css/
+│   ├── main.css      – wspólny wygląd WSZYSTKICH stron: menu, nagłówek, stopka, formularze, karuzela
+│   ├── sklep.css     – sklep, karty produktów, strona produktu, koszyk
+│   └── blog.css      – lista wpisów i wygląd artykułów
+├── js/
+│   ├── koszyk.js         – obsługa koszyka (na każdej stronie)
+│   └── produkty-dane.js  – dane produktów            (generowane)
+├── assets/
+│   ├── ikony/        – ikona strony (favicon)
+│   ├── psy/          – zdjęcia psów z karuzeli na stronie głównej
+│   ├── dogs/         – zdjęcia do gry clicker
+│   ├── produkty/     – zdjęcia produktów
+│   └── blog/         – okładki i zdjęcia artykułów
+├── produkty/         – strony produktów               (generowane)
+├── blog/             – strony wpisów                  (generowane)
+│   └── wpisy/        – ARTYKUŁY – tu wrzucasz pliki
+└── scripts/          – skrypty
 ```
+
+### Gdzie zmieniać wygląd
+
+| Chcę zmienić… | Plik |
+|---|---|
+| kolor menu, stopkę, czcionkę, przyciski formularzy – na wszystkich stronach | `css/main.css` |
+| wygląd sklepu, produktów, koszyka | `css/sklep.css` |
+| wygląd bloga i artykułów (nagłówki, cytaty, tabele, zdjęcia…) | `css/blog.css` |
+| coś tylko na jednej stronie (np. gra w `help.html`) | blok `<style>` w tej stronie |
+
+**Artykuły mają jednolity wygląd.** Przy generowaniu bloga z wklejonego HTML usuwane są atrybuty `style="..."`, znaczniki `<font>` i `<center>`, a nagłówki `<h1>` zamieniane na `<h2>` – wygląd artykułu zależy wyłącznie od `css/blog.css`. Plik źródłowy w `blog/wpisy/` zostaje bez zmian. Stopka z linią u góry (np. informacja o przygotowaniu tekstu z pomocą AI) dostaje osobny, wyciszony styl.

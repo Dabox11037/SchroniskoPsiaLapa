@@ -1,21 +1,6 @@
-/* Wspólne style stron produktów i koszyka */
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: 'Arial', sans-serif; line-height: 1.6; background-color: #f9f9f9; color: #333; }
+/* Style sklepu: usługi, karty produktów, strona produktu, koszyk (wymaga main.css) */
 
-.navbar { background: #ff8c00; padding: 1rem; position: sticky; z-index: 2; top: 0; }
-.nav-links { display: flex; list-style: none; align-items: center; }
-.nav-links li { margin-right: 2rem; }
-.nav-links a { color: white; text-decoration: none; font-weight: bold; transition: color 0.3s; }
-.nav-links a:hover { color: #ffd700; }
-.nav-links .cart-link { margin-left: auto; margin-right: 0; }
-.mobile-menu { display: none; color: white; font-size: 1.5rem; cursor: pointer; }
-@media (max-width: 768px) {
-    .nav-links { flex-direction: column; display: none; width: 100%; }
-    .nav-links li { margin: 0.5rem 0; }
-    .nav-links .cart-link { margin-left: 0; }
-    .mobile-menu { display: block; }
-}
-
+/* Przyciski sklepu */
 button { background: #ff8c00; color: white; padding: 0.8rem 1.6rem; border: 2px solid #ff8c00; border-radius: 4px; cursor: pointer; font-weight: bold; font-size: 1rem; }
 button:hover { background: #e07b00; border-color: #e07b00; }
 button.secondary { background: white; color: #ff8c00; }
@@ -24,8 +9,6 @@ input, select, textarea { padding: 0.5rem; border: 1px solid #ddd; border-radius
 
 /* Strona produktu */
 .product-page { max-width: 1100px; margin: 2rem auto; padding: 0 1rem; }
-.breadcrumbs { font-size: 0.9rem; color: #777; margin-bottom: 1.5rem; }
-.breadcrumbs a { color: #ff8c00; text-decoration: none; }
 .product { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); padding: 2rem; }
 .product-media img { width: 100%; border-radius: 10px; object-fit: cover; aspect-ratio: 1/1; }
 .product-placeholder { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; font-size: 9rem; border-radius: 10px; background: linear-gradient(135deg, #fff3e0, #ffe0b2); }
@@ -44,7 +27,6 @@ input, select, textarea { padding: 0.5rem; border: 1px solid #ddd; border-radius
 .params { width: 100%; border-collapse: collapse; }
 .params th, .params td { text-align: left; padding: 0.7rem 1rem; border-bottom: 1px solid #eee; }
 .params th { width: 40%; color: #666; font-weight: normal; background: #fafafa; }
-.back { display: inline-block; margin-top: 1.5rem; color: #ff8c00; font-weight: bold; text-decoration: none; }
 @media (max-width: 768px) {
     .product { grid-template-columns: 1fr; padding: 1.2rem; }
     .product-placeholder { font-size: 6rem; }
@@ -68,12 +50,41 @@ input, select, textarea { padding: 0.5rem; border: 1px solid #ddd; border-radius
 .checkout .form-group { margin-bottom: 1rem; }
 .checkout label { display: block; font-weight: bold; margin-bottom: 0.3rem; }
 .checkout input, .checkout select, .checkout textarea { width: 100%; }
-.form-success { display: none; color: #2e7d32; font-weight: bold; margin-top: 1rem; }
 @media (max-width: 600px) {
     .cart-item { grid-template-columns: 40px 1fr auto; }
     .cart-item .ci-unit { display: none; }
 }
 
-footer { background: #333; color: white; padding: 2rem; text-align: center; margin-top: 2rem; }
-.social-media { margin-bottom: 1rem; }
-.social-link { color: #ff8c00; margin: 0 1rem; }
+/* Usługi i sklep (uslugi.html) */
+.shop-section { max-width: 1200px; margin: 2rem auto; padding: 0 1rem; }
+.shop-section > h2 { text-align: center; margin-bottom: 0.5rem; color: #333; }
+.shop-section > p.lead { text-align: center; color: #666; margin-bottom: 1.5rem; }
+.cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 1.5rem; }
+.card {
+background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+padding: 1.5rem; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card:hover { transform: translateY(-5px); box-shadow: 0 6px 14px rgba(0,0,0,0.15); }
+.card .icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+.card h3 { color: #333; margin-bottom: 0.5rem; font-size: 1.1rem; }
+.card p { color: #555; font-size: 0.95rem; flex-grow: 1; }
+.card .price { color: #ff8c00; font-weight: bold; font-size: 1.2rem; margin: 1rem 0 0.5rem; }
+.card .tag { display: inline-block; font-size: 0.75rem; background: #fff3e0; color: #c66a00; padding: 0.1rem 0.6rem; border-radius: 10px; margin-bottom: 0.5rem; align-self: flex-start; }
+.card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 8px; margin-bottom: 0.8rem; display: block; }
+.card h3 a { color: #333; text-decoration: none; }
+.card h3 a:hover { color: #ff8c00; }
+.card-buttons { display: flex; gap: 0.5rem; }
+.card-buttons > * { flex: 1; text-align: center; }
+.btn-outline { border: 2px solid #ff8c00; color: #ff8c00; border-radius: 4px; padding: 0.5rem; text-decoration: none; font-weight: bold; font-size: 0.9rem; }
+.btn-outline:hover { background: #fff3e0; }
+.card a.more { color: #ff8c00; font-weight: bold; font-size: 0.9rem; }
+.filters { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.5rem; margin-bottom: 1.5rem; }
+.filters button { background: white; color: #ff8c00; border: 2px solid #ff8c00; padding: 0.4rem 1.2rem; border-radius: 20px; }
+.filters button.active, .filters button:hover { background: #ff8c00; color: white; }
+.card button { padding: 0.6rem 1rem; }
+.where { font-size: 0.85rem; color: #666; margin-top: 0.75rem; }
+.locations { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; align-items: stretch; }
+.locations iframe { width: 100%; height: 100%; min-height: 320px; border: 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.loc-list { display: flex; flex-direction: column; gap: 1rem; }
+.loc-list .card h3 { margin-bottom: 0.3rem; }
+@media (max-width: 768px) { .locations { grid-template-columns: 1fr; } }

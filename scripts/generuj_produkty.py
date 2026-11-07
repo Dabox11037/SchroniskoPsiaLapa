@@ -6,7 +6,7 @@ Uruchom z katalogu głównego strony:  python scripts/generuj_produkty.py
 
 Tworzy / nadpisuje:
   - produkty/<slug>.html   – osobna strona każdego produktu
-  - produkty-dane.js       – lista produktów używana przez uslugi.html
+  - js/produkty-dane.js    – lista produktów używana przez uslugi.html
   - karty produktów w uslugi.html (między znacznikami PRODUKTY:START/END)
   - sitemap.xml            – mapa strony z wszystkimi podstronami (także blog)
 
@@ -201,8 +201,10 @@ def product_page(p):
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="{e(p['desc'])} {e(price_label(p))}. Sklep schroniska Psia Łapa – każdy zakup wspiera psy AI.">
     <link rel="canonical" href="{url}">
-    <link rel="icon" type="image/png" href="../dog_icon.png">
-    <link rel="stylesheet" href="../sklep.css">
+    <link rel="icon" type="image/png" sizes="32x32" href="../assets/ikony/favicon-32.png">
+    <link rel="apple-touch-icon" href="../assets/ikony/ikona.png">
+    <link rel="stylesheet" href="../css/main.css">
+    <link rel="stylesheet" href="../css/sklep.css">
     <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
 </head>
 <body>
@@ -242,7 +244,7 @@ def product_page(p):
 
 {FOOTER}
 
-    <script src="../koszyk.js" data-root="../"></script>
+    <script src="../js/koszyk.js" data-root="../"></script>
     <script>
         const product = {json.dumps({"slug": p["slug"], "name": p["name"], "price": start_price, "icon": p["icon"]}, ensure_ascii=False)};
         const variant = document.getElementById('variant');
@@ -318,7 +320,7 @@ def main():
     # Dane dla uslugi.html
     data = [{"slug": p["slug"], "icon": p["icon"], "name": p["name"], "desc": p["desc"], "price": p["price"],
              "label": price_label(p), "cat": p["cat"], "hasVariants": bool(p.get("variants")), "img": find_image(p["slug"])} for p in PRODUCTS]
-    with open(os.path.join(ROOT, "produkty-dane.js"), "w", encoding="utf-8", newline="\n") as f:
+    with open(os.path.join(ROOT, "js", "produkty-dane.js"), "w", encoding="utf-8", newline="\n") as f:
         f.write("// Plik generowany przez scripts/generuj_produkty.py – nie edytuj ręcznie\n")
         f.write("const products = " + json.dumps(data, ensure_ascii=False, indent=2) + ";\n")
 
@@ -335,7 +337,7 @@ def main():
         f.write(page)
 
     write_sitemap()
-    print(f"Wygenerowano {len(PRODUCTS)} stron produktów, produkty-dane.js i sitemap.xml")
+    print(f"Wygenerowano {len(PRODUCTS)} stron produktów, js/produkty-dane.js i sitemap.xml")
 
 
 if __name__ == "__main__":

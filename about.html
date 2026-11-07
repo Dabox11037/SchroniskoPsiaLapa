@@ -43,280 +43,17 @@
     
 <meta name="google-site-verification" content="jcTbVjg36WqFVPwqQsKViDWA7UK-QqtWUgJkVZ_uL7o" />
 
-<link rel="icon" type="image/png" href="dog_icon.png">
     
 
-    <link rel="apple-touch-icon" href="dog_icon.png">
     
     <!-- Responsywność -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/ikony/favicon-32.png">
+    <link rel="apple-touch-icon" href="assets/ikony/ikona.png">
+    <link rel="stylesheet" href="css/main.css">
     <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            line-height: 1.6;
-            background-color: #f9f9f9;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar {
-            background: #ff8c00;
-            padding: 1rem;
-            position: sticky;
-            z-index: 2;
-            top: 0;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            align-items: center;
-        }
-
-        .nav-links li {
-            margin-right: 2rem;
-        }
-
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #ffd700;
-        }
-
-        /* Mobile menu */
-        .mobile-menu {
-            display: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                flex-direction: column;
-                display: none;
-                width: 100%;
-            }
-            
-            .nav-links li {
-                margin: 0.5rem 0;
-            }
-            
-            .mobile-menu {
-                display: block;
-            }
-        }
-
-        /* Sekcja główna */
-        .hero {
-            text-align: center;
-            padding: 3rem 1rem;
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5));
-            color: white;
-        }
-
-        /* Galeria psów */
-        .dog-card {
-    background: white;
-    border-radius: 10px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-    aspect-ratio: 2/1; 
-}
-
-.dog-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center 25%; /* Domyslne pozycjonowanie zdjęcia */
-    transition: all 0.5s cubic-bezier(0.25, 0.45, 0.45, 0.95);
-}
-
-.dog-card:hover img {
-    object-position: center center; 
-    transform: scale(1.05);
-}
-
-.dog-info {
-    padding: 1rem;
-    position: absolute;
-    bottom: -100%;
-    left: 0;
-    right: 0;
-    background: rgba(255, 255, 255, 0.95);
-    transition: all 0.3s ease;
-    z-index: 2;
-}
-
-.dog-card:hover .dog-info {
-    bottom: 0;
-}
-
-.dog-card::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: linear-gradient(to top, rgba(0,0,0,0.7) 30%, transparent);
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.dog-card:hover::after {
-    opacity: 1;
-}
-
-.carousel-container {
-    position: relative;
-    max-width: 1200px;
-    margin: 2rem auto;
-    overflow: hidden;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.carousel {
-    display: flex;
-    transition: transform 0.5s ease-in-out;
-}
-
-.carousel-item {
-    min-width: 100%;
-    position: relative;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-    aspect-ratio: 16/9;
-}
-
-.carousel-item.active {
-    opacity: 1;
-}
-
-.carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.image-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: rgba(0,0,0,0.7);
-    color: white;
-    padding: 1rem;
-    transform: translateY(100%);
-    transition: transform 0.3s ease;
-}
-
-.carousel-item.active .image-info {
-    transform: translateY(0);
-}
-
-.carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: rgba(255,255,255,0.3);
-    border: none;
-    color: white;
-    font-size: 2rem;
-    padding: 0.5rem 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.carousel-button:hover {
-    background: rgba(255,255,255,0.7);
-    color: #333;
-}
-
-.prev {
-    left: 0;
-    border-radius: 0 5px 5px 0;
-}
-
-.next {
-    right: 0;
-    border-radius: 5px 0 0 5px;
-}
-
-@media (max-width: 768px) {
-    .carousel-button {
-        font-size: 1.5rem;
-        padding: 0.3rem 0.7rem;
-    }
-}
-     
-article{
- max-width:70%;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-
-}
-	 /* Formularz kontaktowy */
-        .contact-form {
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 2rem;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 0.5rem;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-
-        button {
-            background: #ff8c00;
-            color: white;
-            padding: 0.8rem 2rem;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        footer {
-            background: #333;
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            margin-top: 2rem;
-        }
-
-        .social-media {
-            margin-bottom: 1rem;
-        }
-
-        .social-link {
-            color: #ff8c00;
-            margin: 0 1rem;
-        }
+        /* Tylko dla tej strony – reszta w css/main.css */
+        .about-text { max-width: 70%; margin: 2rem auto; padding: 2rem; background: white; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        @media (max-width: 768px) { .about-text { max-width: none; margin: 1rem; padding: 1.2rem; } }
     </style>
 	 <script> window.chtlConfig = { chatbotId: "7529265528" } </script>
 <script async data-id="7529265528" id="chtl-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
@@ -381,7 +118,7 @@ article{
             <li><a href="blog.html">Blog</a></li>
             <li><a href="help.html">Wesprzyj nas</a></li>
             <li><a href="https://vetchatbot.com">Nasz weterynarz</a></li>
-            <li class="cart-link" style="margin-left:auto;margin-right:0"><a href="koszyk.html">🛒 Koszyk (<span class="cart-count">0</span>)</a></li>
+            <li class="cart-link"><a href="koszyk.html">🛒 Koszyk (<span class="cart-count">0</span>)</a></li>
         </ul>
     </nav>
 
@@ -391,7 +128,8 @@ article{
         <p>Pomóż nam znaleźć im dom</p>
         
     </header>
-<article> 
+<article class="about-text">
+
 <h2>O nas</h2>
 <p>Witaj w Psia Łapa – schronisku, które zajmuje się psami sztucznej inteligencji (AI)!<br> 
 Jesteśmy miejscem, które zapewnia opiekę i wsparcie dla zaawansowanych psów wirtualnych, zaprojektowanych z myślą o interakcjach i wsparciu emocjonalnym. <br>
@@ -460,6 +198,6 @@ alert('Dziękujemy za zgłoszenie! Skontaktujemy się wkrótce.');
         this.reset();
     });
     </script>
-    <script src="koszyk.js"></script>
+    <script src="js/koszyk.js"></script>
 </body>
 </html>

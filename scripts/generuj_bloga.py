@@ -64,9 +64,10 @@ HEAD = """<!DOCTYPE html>
     <meta property="og:url" content="{url}">
     <meta property="og:title" content="{title}">
     <meta property="og:description" content="{desc}">
-{og_image}    <link rel="icon" type="image/png" href="{r}dog_icon.png">
-    <link rel="stylesheet" href="{r}sklep.css">
-    <link rel="stylesheet" href="{r}blog.css">
+{og_image}    <link rel="icon" type="image/png" sizes="32x32" href="{r}assets/ikony/favicon-32.png">
+    <link rel="apple-touch-icon" href="{r}assets/ikony/ikona.png">
+    <link rel="stylesheet" href="{r}css/main.css">
+    <link rel="stylesheet" href="{r}css/blog.css">
 {ld}</head>
 <body>
 {nav}
@@ -75,7 +76,7 @@ HEAD = """<!DOCTYPE html>
 TAIL = """
 {footer}
 
-    <script src="{r}koszyk.js" data-root="{r}"></script>
+    <script src="{r}js/koszyk.js" data-root="{r}"></script>
     <script>
         document.querySelector('.mobile-menu').addEventListener('click', () => {{
             const nav = document.querySelector('.nav-links');
@@ -90,6 +91,24 @@ TAIL = """
 def pl_date(iso):
     y, m, d = (int(x) for x in iso.split("-"))
     return f"{d} {MONTHS[m - 1]} {y}"
+
+
+def clean_article(body):
+    """Ujednolica wklejony HTML, żeby wygląd artykułu zależał tylko od css/blog.css.
+    Plik źródłowy w blog/wpisy/ zostaje bez zmian – czyszczona jest tylko strona wynikowa."""
+    # Stopka/uwaga pod artykułem (div z linią u góry, np. informacja o AI) -> klasa post-note
+    body = re.sub(r'<div\b[^>]*style="[^"]*border-top[^"]*"[^>]*>', '<div class="post-note">', body, flags=re.I)
+    # Wbudowane style, stare atrybuty wyglądu i znaczniki <font>/<center>
+    body = re.sub(r'\s(style|align|bgcolor|color|face|border|cellpadding|cellspacing)\s*=\s*("[^"]*"|\'[^\']*\')', '', body, flags=re.I)
+    body = re.sub(r'</?(font|center)\b[^>]*>', '', body, flags=re.I)
+    # Strona ma już tytuł <h1> – nagłówki h1 z treści zamieniamy na h2
+    body = re.sub(r'<(/?)h1\b', r'<\1h2', body, flags=re.I)
+    # Tabele w przewijanym kontenerze (telefony)
+    body = re.sub(r'<table\b', '<div class="table-wrap"><table', body, flags=re.I)
+    body = re.sub(r'</table>', '</table></div>', body, flags=re.I)
+    # Obrazki: leniwe ładowanie
+    body = re.sub(r'<img\b(?![^>]*\bloading=)', '<img loading="lazy"', body, flags=re.I)
+    return body
 
 
 def parse(path):
@@ -115,6 +134,7 @@ def parse(path):
     body = m.group(2).strip()
     # Ścieżki od katalogu głównego (assets/...) -> względne dla /blog/
     body = re.sub(r'(src|href)="(assets/|produkty/|[a-z0-9-]+\.html)', r'\1="../\2', body)
+    body = clean_article(body)
     return {"slug": slug, "title": meta["tytul"], "desc": meta["opis"], "date": meta["data"],
             "author": meta.get("autor", "Zespół Psiej Łapy"), "image": meta.get("obrazek"), "body": body}
 

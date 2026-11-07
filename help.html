@@ -41,12 +41,13 @@
     
 <meta name="google-site-verification" content="jcTbVjg36WqFVPwqQsKViDWA7UK-QqtWUgJkVZ_uL7o" />
 
-<link rel="icon" type="image/png" href="dog_icon.png">
     
 
-    <link rel="apple-touch-icon" href="dog_icon.png">
 
   <!-- Główny styl ze strony głównej -->
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/ikony/favicon-32.png">
+    <link rel="apple-touch-icon" href="assets/ikony/ikona.png">
+    <link rel="stylesheet" href="css/main.css">
   <style>
 
 #page-loader {
@@ -82,56 +83,9 @@
   to { transform: rotate(360deg); }
 }
 
-    /* Global */
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: 'Arial', sans-serif;
-      line-height: 1.6;
-      background-color: #f9f9f9;
-      color: #333;
-    }
+    /* Wspólne style (menu, nagłówek, stopka) – css/main.css */
     a { text-decoration: none; }
 
-    /* Navbar */
-    .navbar {
-      background: #ff8c00;
-      padding: 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .nav-links {
-      list-style: none;
-      display: flex;
-    }
-    .nav-links li { margin-right: 1.5rem; }
-    .nav-links a {
-      color: white;
-      font-weight: bold;
-      transition: color 0.3s;
-    }
-    .nav-links a:hover { color: #ffd700; }
-    .mobile-menu {
-      display: none;
-      font-size: 1.5rem;
-      color: white;
-      cursor: pointer;
-    }
-    @media (max-width: 768px) {
-      .nav-links { display: none; flex-direction: column; width: 100%; }
-      .mobile-menu { display: block; }
-    }
-
-    /* Hero / Header sekcji clickera */
-    .hero {
-      text-align: center;
-      padding: 2.5rem 1rem;
-      background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4));
-      color: white;
-    }
 
     /* Clicker Game */
     .game-container {
@@ -173,15 +127,6 @@
       color: #555;
     }
 
-    /* Footer */
-    footer {
-      background: #333;
-      color: white;
-      padding: 2rem 1rem;
-      text-align: center;
-      margin-top: 3rem;
-    }
-    .social-link { color: #ff8c00; margin: 0 0.5rem; }
   </style>
    <script> window.chtlConfig = { chatbotId: "7529265528" } </script>
 <script async data-id="7529265528" id="chtl-script" type="text/javascript" src="https://chatling.ai/js/embed.js"></script>
@@ -247,7 +192,7 @@
       <li><a href="blog.html">Blog</a></li>
       <li><a href="help.html">Wesprzyj nas</a></li>
       <li><a href="https://vetchatbot.com">Nasz weterynarz</a></li>
-      <li class="cart-link" style="margin-left:auto;margin-right:0"><a href="koszyk.html">🛒 Koszyk (<span class="cart-count">0</span>)</a></li>
+      <li class="cart-link"><a href="koszyk.html">🛒 Koszyk (<span class="cart-count">0</span>)</a></li>
     </ul>
   </nav>
 
@@ -380,6 +325,6 @@ function preloadBatch(urls, batchSize = 5, delay = 200) {
   
   </script>
 
-    <script src="koszyk.js"></script>
+    <script src="js/koszyk.js"></script>
 </body>
 </html>
