@@ -7,7 +7,8 @@ Uruchom z katalogu głównego strony:  python scripts/generuj_produkty.py
 Tworzy / nadpisuje:
   - produkty/<slug>.html   – osobna strona każdego produktu
   - produkty-dane.js       – lista produktów używana przez uslugi.html
-  - sitemap.xml            – mapa strony z wszystkimi podstronami
+  - karty produktów w uslugi.html (między znacznikami PRODUKTY:START/END)
+  - sitemap.xml            – mapa strony z wszystkimi podstronami (także blog)
 
 Zdjęcia: wrzuć plik assets/produkty/<slug>.webp (albo .jpg / .png)
 i uruchom skrypt ponownie. Bez zdjęcia wyświetla się ikona produktu.
@@ -134,6 +135,7 @@ NAV = """    <nav class="navbar">
             <li><a href="{r}index.html">Strona główna</a></li>
             <li><a href="{r}about.html">O schronisku</a></li>
             <li><a href="{r}uslugi.html">Usługi i sklep</a></li>
+            <li><a href="{r}blog.html">Blog</a></li>
             <li><a href="{r}help.html">Wesprzyj nas</a></li>
             <li><a href="https://vetchatbot.com">Nasz weterynarz</a></li>
             <li class="cart-link"><a href="{r}koszyk.html">🛒 Koszyk (<span class="cart-count">0</span>)</a></li>
@@ -274,6 +276,38 @@ def product_page(p):
 """
 
 
+def product_card(p):
+    url = f"produkty/{p['slug']}.html"
+    img = find_image(p["slug"])
+    media = (f'<a href="{url}"><img class="card-img" src="{img}" alt="{e(p["name"])}" loading="lazy"></a>'
+             if img else f'<div class="icon">{p["icon"]}</div>')
+    btn = "Wybierz wariant" if p.get("variants") else "🛒 Do koszyka"
+    return f"""            <div class="card" data-cat="{p['cat']}" data-slug="{p['slug']}">
+                {media}
+                <span class="tag">{e(CATEGORIES[p['cat']])}</span>
+                <h3><a href="{url}">{e(p['name'])}</a></h3>
+                <p>{e(p['desc'])}</p>
+                <div class="price">{e(price_label(p))}</div>
+                <div class="card-buttons">
+                    <a class="btn-outline" href="{url}">Szczegóły</a>
+                    <button type="button">{btn}</button>
+                </div>
+            </div>"""
+
+
+def write_sitemap():
+    """Sitemap ze wszystkimi stronami: główne, produkty i wpisy na blogu."""
+    today = date.today().isoformat()
+    pages = ["", "about.html", "uslugi.html", "blog.html", "help.html"] + [f"produkty/{p['slug']}.html" for p in PRODUCTS]
+    blog_dir = os.path.join(ROOT, "blog")
+    if os.path.isdir(blog_dir):
+        pages += [f"blog/{f}" for f in sorted(os.listdir(blog_dir)) if f.endswith(".html")]
+    urls = "\n".join(f"<url>\n  <loc>{SITE}{pg}</loc>\n  <lastmod>{today}</lastmod>\n</url>" for pg in pages)
+    with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8", newline="\n") as f:
+        f.write('<?xml version="1.0" encoding="UTF-8"?>\n'
+                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "\n</urlset>\n")
+
+
 def main():
     out_dir = os.path.join(ROOT, "produkty")
     os.makedirs(out_dir, exist_ok=True)
@@ -288,14 +322,19 @@ def main():
         f.write("// Plik generowany przez scripts/generuj_produkty.py – nie edytuj ręcznie\n")
         f.write("const products = " + json.dumps(data, ensure_ascii=False, indent=2) + ";\n")
 
-    # Sitemap
-    today = date.today().isoformat()
-    pages = ["", "about.html", "uslugi.html", "help.html"] + [f"produkty/{p['slug']}.html" for p in PRODUCTS]
-    urls = "\n".join(f"<url>\n  <loc>{SITE}{pg}</loc>\n  <lastmod>{today}</lastmod>\n</url>" for pg in pages)
-    with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8", newline="\n") as f:
-        f.write('<?xml version="1.0" encoding="UTF-8"?>\n'
-                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + urls + "\n</urlset>\n")
+    # Statyczne karty produktów w uslugi.html (widoczne dla Google bez JavaScriptu)
+    cards = "\n".join(product_card(p) for p in PRODUCTS)
+    path = os.path.join(ROOT, "uslugi.html")
+    page = open(path, encoding="utf-8").read()
+    start, end = "<!-- PRODUKTY:START", "<!-- PRODUKTY:END -->"
+    i = page.index(start)
+    i = page.index("-->", i) + 3
+    j = page.index(end)
+    page = page[:i] + "\n" + cards + "\n" + page[j:]
+    with open(path, "w", encoding="utf-8", newline="\n") as f:
+        f.write(page)
 
+    write_sitemap()
     print(f"Wygenerowano {len(PRODUCTS)} stron produktów, produkty-dane.js i sitemap.xml")
 
 

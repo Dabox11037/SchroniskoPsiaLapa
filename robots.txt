@@ -1,4 +1,4 @@
 User-agent: *
-Disallow:
+Disallow: /blog/wpisy/
 
 Sitemap: https://schronisko-psia-lapa.vercel.app/sitemap.xml
